@@ -51,6 +51,16 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('items', $value);
     }
 
+    public function getWaitForResult()
+    {
+        return (int)$this->getParameter('waitForResult');
+    }
+
+    public function setWaitForResult($value)
+    {
+        return $this->setParameter('waitForResult', (int)$value);
+    }
+
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
@@ -75,6 +85,7 @@ class PurchaseRequest extends AbstractRequest
             'p24_phone' => $this->getCard()->getPhone(),
             'p24_url_return' => $this->getReturnUrl(),
             'p24_url_status' => $this->getNotifyUrl(),
+            'p24_wait_for_result' => $this->getWaitForResult(),
             'p24_sign' => $this->generateSignature(
                 $this->getSessionId(),
                 $this->getPosId(),
